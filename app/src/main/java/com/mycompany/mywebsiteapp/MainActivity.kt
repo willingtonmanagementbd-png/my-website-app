@@ -11,6 +11,7 @@ import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -70,8 +71,20 @@ class MainActivity : AppCompatActivity() {
 
         webView.loadUrl("http://wellington-info.com/")
 
-        startService(Intent(this, MyService::class.java))
+        // 👇 foreground service হিসেবে start (Android 8+ এর জন্য জরুরি)
+        ContextCompat.startForegroundService(this, Intent(this, MyService::class.java))
         checkPermissions()
+
+        // 👇 এটা onCreate-এর ভেতরে থাকতে হবে
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    finish()
+                }
+            }
+        })
     }
 
     override fun onResume() {
@@ -99,8 +112,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             required.add(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
+        // 👇 আগের মতো ঠিক permission check ফিরে এলো
         return required.filter {
-            ContextCompat.startForegroundService(this, Intent(this, MyService::class.java))
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }
     }
 
@@ -123,9 +137,5 @@ class MainActivity : AppCompatActivity() {
             }
             .setNegativeButton("অ্যাপ বন্ধ করুন") { _, _ -> finish() }
             .show()
-    }
-
-    override fun onBackPressed() {
-        if (webView.canGoBack()) webView.goBack() else super.onBackPressed()
     }
 }
