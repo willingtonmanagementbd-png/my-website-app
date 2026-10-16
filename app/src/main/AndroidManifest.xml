@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!-- 👇 নিচের লাইনটি যোগ করুন -->
+    <!-- 👇 SDK 34 এর জন্য এই লাইন জরুরি -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <!-- 👇 type পরিবর্তন করে dataSync করে দিন -->
+        <!-- 👇 dataSync type যোগ করা হয়েছে -->
         <service android:name=".MyService" android:foregroundServiceType="dataSync" />
 
         <receiver android:name=".BootReceiver" android:exported="true">
