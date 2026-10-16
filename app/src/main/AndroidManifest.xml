@@ -5,16 +5,12 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- 👇 নিচের লাইনটি যোগ করুন -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-
-    <service android:name=".MyService"
-        android:foregroundServiceType="dataSync" />
-
 
     <application
         android:name=".MyApp"
@@ -23,16 +19,15 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity" android:exported="true"
-            android:configChanges="orientation|screenSize">
+        <activity android:name=".MainActivity" android:exported="true" android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service android:name=".MyService"
-            android:foregroundServiceType="mediaPlayback" />
+        <!-- 👇 type পরিবর্তন করে dataSync করে দিন -->
+        <service android:name=".MyService" android:foregroundServiceType="dataSync" />
 
         <receiver android:name=".BootReceiver" android:exported="true">
             <intent-filter>
