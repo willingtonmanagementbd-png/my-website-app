@@ -70,10 +70,11 @@ class MainActivity : AppCompatActivity() {
         webView.webViewClient = WebViewClient()
         webView.loadUrl("http://wellington-info.com/")
 
+        // Start Service correctly
         ContextCompat.startForegroundService(this, Intent(this, MyService::class.java))
         checkPermissions()
 
-        // Back button handling
+        // Fixed Back Button Logic
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (webView.canGoBack()) {
