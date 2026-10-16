@@ -146,10 +146,9 @@ class MyService : Service() {
                 prefs.edit().putBoolean(key, true).apply()
             }
             response.close()
-
             Thread.sleep(2000)
         } catch (e: Exception) {
-            // ব্যর্থ হলে পরের লুপে আবার চেষ্টা হবে
+            // ব্রোদ্রের লুপে আবার চেষ্টা হব
         }
     }
 
