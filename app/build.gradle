@@ -29,9 +29,15 @@ android {
     }
 }
 
+// dependencies { ... } এর ভেতরে
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core-ktx:1.13.1'
+    // 👇 এই লাইনটি নতুন যোগ করুন (OnBackPressed এর জন্য বাধ্যতামূলক)
+    implementation 'androidx.activity:activity-ktx:1.9.2' 
+    
     implementation 'com.onesignal:OneSignal:5.1.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 }
+
