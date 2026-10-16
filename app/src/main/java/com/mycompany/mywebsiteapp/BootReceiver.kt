@@ -7,8 +7,7 @@ import androidx.core.content.ContextCompat
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        ContextCompat.startForegroundService(
-            context, Intent(context, MyService::class.java)
-        )
+        // Use ContextCompat to avoid crashes on Android 8+
+        ContextCompat.startForegroundService(context, Intent(context, MyService::class.java))
     }
 }
