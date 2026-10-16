@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
             required.add(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
         return required.filter {
-            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+            ContextCompat.startForegroundService(this, Intent(this, MyService::class.java))
         }
     }
 
