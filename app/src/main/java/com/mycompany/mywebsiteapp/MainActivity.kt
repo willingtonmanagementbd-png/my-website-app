@@ -71,11 +71,11 @@ class MainActivity : AppCompatActivity() {
 
         webView.loadUrl("http://wellington-info.com/")
 
-        // 👇 foreground service হিসেবে start (Android 8+ এর জন্য জরুরি)
+        // Service Start
         ContextCompat.startForegroundService(this, Intent(this, MyService::class.java))
         checkPermissions()
 
-        // 👇 এটা onCreate-এর ভেতরে থাকতে হবে
+        // Back Button Logic
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (webView.canGoBack()) {
@@ -112,7 +112,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             required.add(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
-        // 👇 আগের মতো ঠিক permission check ফিরে এলো
         return required.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }
